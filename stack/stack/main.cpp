@@ -11,25 +11,63 @@ template<typename T>
 class stack{
 private:
     T data;
-    stack<T>* next;
+    
+public:
+    stack<T>* previous = NULL;
+    stack<T>* next = NULL;
+    stack<T>* top = NULL;
+    
+    T pop();
+    void push(T item);
+    T peek();
+    bool isEmpty();
+    static stack<T>* create(T data);
 };
-void pop(){
-    
+template<typename T>
+stack<T>* stack<T>::create(T data){
+    stack<T>* st = new stack<T>;
+    st->data = data;
+    st->next = NULL;
+    return st;
 }
-template<typename t>
-void push(t item){
-    
+template<typename T>
+T stack<T>::pop(){
+    if(top==NULL) return 0;
+    T data = top->data;
+    top = top->next;
+    return data;
 }
-void peek(){
-    
+template<typename T>
+void stack<T>::push(T item){
+    if(top==NULL)
+        top = stack<T>::create(item);
+    else{
+        stack<T>* current = top->previous;
+        current = stack<T>::create(item);
+        current->next = top;
+        top = current;
+    }
+        
 }
-
-bool isEmpty(){
-
-    return true;
+template<typename T>
+T stack<T>::peek(){
+    return top->data;
+}
+template<typename T>
+bool stack<T>::isEmpty(){
+    if(top==NULL)
+        return true;
+    else return false;
 }
 
 int main(int argc, const char * argv[]) {
-    cout << "Hello, World!\n";
+    stack<int> st;
+    stack<int> st2;
+    cout << st.isEmpty()<< endl;
+    st.push(1);
+    st.push(2);
+    st.push(5);
+    cout << st2.isEmpty()<<endl;
+    cout << st.pop() << st.peek();
     return 0;
 }
