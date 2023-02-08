@@ -7,6 +7,14 @@
 
 #include <iostream>
 using namespace std;
+/*
+ 자료구조 stack 구현 LIFO의 성격을 가지고 있다.
+ */
+
+
+/*
+ stack 구조체 선언
+ */
 template<typename T>
 class stack{
 private:
@@ -23,6 +31,9 @@ public:
     bool isEmpty();
     static stack<T>* create(T data);
 };
+/*
+ stack을 생성하는 create 함수
+ */
 template<typename T>
 stack<T>* stack<T>::create(T data){
     stack<T>* st = new stack<T>;
@@ -30,6 +41,9 @@ stack<T>* stack<T>::create(T data){
     st->next = NULL;
     return st;
 }
+/*
+ top의 data값을 반환하고 top을 제거하는 pop함수
+ */
 template<typename T>
 T stack<T>::pop(){
     if(top==NULL) return 0;
@@ -37,6 +51,11 @@ T stack<T>::pop(){
     top = top->next;
     return data;
 }
+/*
+ stack에 data값을 집어넣는 push함수
+ top에 아무값도 없으면 top에 값을 집어넣고
+ top에 값이 있다면 앞에 데이터 값을 집어넣고 top의 위치를 previous로 바꿔준다
+ */
 template<typename T>
 void stack<T>::push(T item){
     if(top==NULL)
@@ -49,10 +68,16 @@ void stack<T>::push(T item){
     }
         
 }
+/*
+ top의 값을 반환하는 peek함수
+ */
 template<typename T>
 T stack<T>::peek(){
     return top->data;
 }
+/*
+ stack이 비어있는지 확인하는 함수 isEmpty
+ */
 template<typename T>
 bool stack<T>::isEmpty(){
     if(top==NULL)
